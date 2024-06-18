@@ -8,7 +8,7 @@ const app: Express = express();
 const port = process.env.PORT || 3000;
 
 app.get("/", (req: Request, res: Response) => {
-  res.send("Playground App Testing Server II");
+  res.send("Playground App Testing Server I");
 });
 
 app.listen(port, () => {
