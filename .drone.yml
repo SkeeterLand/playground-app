@@ -2,13 +2,13 @@ kind: pipeline
 # type: kubernetes
 name: playground-app
 
-platform:
-  os: linux
-  arch: arm64
+# platform:
+#   os: linux
+#   arch: arm64
 
 steps:
 - name: greeting
-  image: alpine
-  commands:
-  - echo hello
-  - echo world
+  image: node:20.11.1-alpine
+  # commands:
+  # - echo hello
+  # - echo world
