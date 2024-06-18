@@ -1,15 +1,18 @@
+---
 kind: pipeline
-# type: kubernetes
-name: playground-app
+type: docker
+name: default
 
-# platform:
-#   os: linux
-#   arch: arm64
+platform:
+  os: ubuntu
+  arch: arm64
 
 steps:
-- name: greeting
-  image: node:20.11.1-alpine
-  # commands:
-  # - echo hello
-  # - echo world
-  # neat
+- name: hello
+  image: busybox
+  commands:
+  - echo hello world
+ 
+trigger:
+  branch:
+  - main
