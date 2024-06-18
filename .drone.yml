@@ -1,9 +1,10 @@
 kind: pipeline
+type: kubernetes
 name: default
 
 steps:
-- name: test
-  image: node:9.8.0
+- name: greeting
+  image: alpine
   commands:
-  - npm install
-  - npm test
+  - echo hello
+  - echo world
