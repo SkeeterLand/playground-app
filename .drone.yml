@@ -27,10 +27,11 @@ steps:
     volumes:
       - name: dockersock
         path: /var/run/docker.sock 
-    commands:
-      - echo "Building with docker-compose in the following directory:"
+    commands: 
       - pwd
       - cd /
+      - pwd
+      - ls -la
       - docker-compose -f ~/docker-compose.yml build 
  
   - name: deploy
