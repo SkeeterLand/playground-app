@@ -63,7 +63,8 @@ steps:
       host: 
         from_secret: k8s_server_ip
       port: 22
-      username: ssh-username
+      username: 
+        from_secret: ssh-username
       key:
         from_secret: ssh_private_key
       script:
