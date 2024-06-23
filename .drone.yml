@@ -1,14 +1,72 @@
-# .drone.yml
 kind: pipeline
-type: docker
-name: default
+type: kubernetes
+
+name: deploy
 
 steps:
-- name: build
-  image: node:20.11.1-alpine
-  commands:
-    - npm install
-    - npm run build
+  - name: install_dependencies
+    image: node:14
+    commands:
+      - npm install
+
+  - name: build_and_push_docker_image
+    image: plugins/docker
+    settings:
+      username:
+        from_secret: docker_username
+      password:
+        from_secret: docker_password
+      repo: samuelbarone/playground-app
+      tags: latest
+      build_args:
+        - NODE_ENV=production
+      registry: registry.hub.docker.com
+
+  # - name: deploy_to_kubernetes
+  #   image: appleboy/drone-kubectl
+  #   settings:
+  #     kubeconfig:
+  #       from_secret: kubeconfig
+  #     command:
+  #       - apply
+  #       - -f
+  #       - deployment.yaml
+
+  - name: deploy
+    image: appleboy/drone-ssh
+    settings:
+      host: k8s_server_ip
+      username: ssh-username
+      key:
+        from_secret: ssh_private_key
+      script:
+        - kubectl apply -f deployment.yaml
+        - kubectl apply -f service.yaml
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+# # .drone.yml
+# kind: pipeline
+# type: docker
+# name: default
+
+# steps:
+# - name: build
+#   image: node:20.11.1-alpine
+#   commands:
+#     - npm install
+#     - npm run build
    # - docker build -t samuelbarone/playground-app:latest .
 
 # - name: test
@@ -16,30 +74,30 @@ steps:
 #   commands:
 #     - npm test  
  
-- name: docker-build
-  image: docker:stable
-  commands:
-    - docker build -t samuelbarone/playground-app:latest .
-    - echo "$ssh_private_key" | docker login -u "$ssh-username" --password-stdin
-    - docker push samuelbarone/playground-app:latest
+# - name: docker-build
+#   image: docker:stable
+#   commands:
+#     - docker build -t samuelbarone/playground-app:latest .
+#     - echo "$ssh_private_key" | docker login -u "$ssh-username" --password-stdin
+#     - docker push samuelbarone/playground-app:latest
 
-- name: deploy
-  image: appleboy/drone-ssh
-  settings:
-    host: k8s_server_ip
-    username: ssh-username
-    key:
-      from_secret: ssh_private_key
-    script:
-      - kubectl apply -f deployment.yaml
-      - kubectl apply -f service.yaml
+# - name: deploy
+#   image: appleboy/drone-ssh
+#   settings:
+#     host: k8s_server_ip
+#     username: ssh-username
+#     key:
+#       from_secret: ssh_private_key
+#     script:
+#       - kubectl apply -f deployment.yaml
+#       - kubectl apply -f service.yaml
 
-services:
-- name: docker
-  image: docker:dind
-  privileged: true
+# services:
+# - name: docker
+#   image: docker:dind
+#   privileged: true
 
-volumes:
-  - name: docker_sock
-    host:
-      path: /var/run/docker.sock
+# volumes:
+#   - name: docker_sock
+#     host:
+#       path: /var/run/docker.sock
