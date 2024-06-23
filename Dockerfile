@@ -1,18 +1,22 @@
 FROM node:14
 
-# Create a directory for your app
+# Create a directory for the application
 WORKDIR /app
 
-# Install npm packages
+# Copy package.json and package-lock.json
 COPY package*.json ./
-RUN npm install
 
-# Copy your application code
+# Install npm dependencies
+RUN npm install --unsafe-perm=true --allow-root
+
+# Copy the rest of the application code
 COPY . .
 
-# Set permissions for /app directory
+# Set permissions for the app directory
 RUN chown -R node:node /app
+
+# Switch to the node user
 USER node
 
-# Command to run your application
-CMD [ "npm", "start" ]  
+# Start the application
+CMD ["npm", "start"]
