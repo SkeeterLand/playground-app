@@ -31,7 +31,7 @@ steps:
       - pwd
       - cd ~/
       - pwd
-      - sudo ls -la
+      - ls -la
       - docker-compose build 
  
   - name: deploy
