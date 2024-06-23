@@ -100,8 +100,7 @@ volumes:
 # volumes:
 # - name: dockersock
 #   temp: {} 
-
-
+ 
 # kind: pipeline
 # type: kubernetes
 
