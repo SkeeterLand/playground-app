@@ -1,14 +1,18 @@
-# Dockerfile
 FROM node:14
 
+# Create a directory for your app
 WORKDIR /app
 
-COPY package.json .
-COPY package-lock.json .
+# Install npm packages
+COPY package*.json ./
 RUN npm install
 
+# Copy your application code
 COPY . .
 
-RUN npm run build
+# Set permissions for /app directory
+RUN chown -R node:node /app
+USER node
 
-CMD ["node", "dist/index.js"]
+# Command to run your application
+CMD [ "npm", "start" ]  
