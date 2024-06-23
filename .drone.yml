@@ -20,6 +20,12 @@ steps:
   #     repo: samuelbarone/playground-app
   #     tags: latest 
 
+  - name: list-directory-contents
+    image: alpine:3.14
+    commands:
+      - cd ~/
+      - ls -la
+
   - name: docker-compose-build
     image: docker/compose:1.29.2
     # volumes:
@@ -28,7 +34,7 @@ steps:
       - name: dockersock
         path: /var/run/docker.sock 
     commands: 
-      - pwd
+      #- pwd
       - cd ~/
       - pwd
       - ls -la
