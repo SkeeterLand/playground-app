@@ -9,7 +9,7 @@ steps:
   commands:
     - npm install
     - npm run build
-    - docker build -t samuelbarone/playground-app:latest .
+   # - docker build -t samuelbarone/playground-app:latest .
 
 - name: test
   image: node:20.11.1-alpine
