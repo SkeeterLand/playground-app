@@ -23,13 +23,14 @@ steps:
   - name: docker-compose-build
     image: docker/compose:1.29.2
     # volumes:
-    #   - /var/run/docker.sock:/var/run/docker.sock
+    #   - /var/run/docker.sock:/var/run/docker.sock 
     volumes:
       - name: dockersock
-        path: /var/run/docker.sock
+        path: /var/run/docker.sock 
     commands:
       - echo "Building with docker-compose in the following directory:"
       - pwd
+      - cd /
       - docker-compose -f ~/docker-compose.yml build 
  
   - name: deploy
