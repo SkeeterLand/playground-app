@@ -6,7 +6,8 @@ steps:
   - name: setup
     image: node:14-alpine
     commands:
-      - apk add --no-cache docker-compose
+      #- apk add --no-cache docker-compose
+      - apk add --no-cache docker
       - npm install
       - npm run build
 
@@ -34,6 +35,25 @@ steps:
   #     - pwd
   #     - ls -la
   #     - docker-compose build 
+
+  - name: build-docker-image
+    image: docker:20.10.7
+    volumes:
+      - name: dockersock
+        path: /var/run/docker.sock
+    commands:
+      - echo "Building Docker image"
+      - docker build -t playground-app .
+
+  # - name: push-docker-image
+  #   image: plugins/docker
+  #   settings:
+  #     username:
+  #       from_secret: docker_username
+  #     password:
+  #       from_secret: docker_password
+  #     repo: samuelbarone/playground-app
+  #     tags: latest
  
   - name: deploy
     image: appleboy/drone-ssh
@@ -44,8 +64,14 @@ steps:
       key:
         from_secret: ssh_private_key
       script:
+        - docker pull samuelbarone/playground-app:latest
         - kubectl apply -f deployment.yml
-        - kubectl apply -f service.yml 
+        - kubectl apply -f service.yml  
+
+volumes:
+  - name: docker_sock
+    host:
+      path: /var/run/docker.sock
 
 # kind: pipeline
 # type: docker
