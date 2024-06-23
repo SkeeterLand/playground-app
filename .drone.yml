@@ -31,8 +31,8 @@ steps:
       - pwd
       - cd ~/
       - pwd
-      - ls -la
-      - docker-compose -f docker-compose.yml build 
+      - sudo ls -la
+      - docker-compose build 
  
   - name: deploy
     image: appleboy/drone-ssh
