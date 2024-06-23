@@ -43,8 +43,7 @@ steps:
         from_secret: ssh_private_key
       script:
         - kubectl apply -f deployment.yml
-        - kubectl apply -f service.yml
-
+        - kubectl apply -f service.yml 
 
 # kind: pipeline
 # type: docker
