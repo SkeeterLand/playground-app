@@ -29,7 +29,7 @@ steps:
       - name: dockersock
         path: /var/run/docker.sock
     commands:
-      - ls la
+      - echo "Building with docker-compose in the following directory:"
       - pwd
       - docker-compose -f ~/docker-compose.yml build 
  
