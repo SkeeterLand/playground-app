@@ -29,6 +29,8 @@ steps:
       - name: dockersock
         path: /var/run/docker.sock
     commands:
+      - ls la
+      - pwd
       - docker-compose -f ~/docker-compose.yml build 
  
   - name: deploy
