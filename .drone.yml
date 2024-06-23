@@ -5,7 +5,7 @@ name: default
 
 steps:
 - name: build
-  image: node:14
+  image: trion/ng-cli
   commands:
     - npm install
     - npm run build
@@ -14,7 +14,14 @@ steps:
 - name: test
   image: node:14
   commands:
-    - npm test
+    - npm test  
+ 
+- name: docker-build
+  image: docker:stable
+  commands:
+    - docker build -t samuelbarone/playground-app:latest .
+    - echo "$ssh_private_key" | docker login -u "$ssh-username" --password-stdin
+    - docker push samuelbarone/playground-app:latest
 
 - name: deploy
   image: appleboy/drone-ssh
