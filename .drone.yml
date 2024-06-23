@@ -18,27 +18,22 @@ steps:
   #     password:
   #       from_secret: docker_password
   #     repo: samuelbarone/playground-app
-  #     tags: latest 
+  #     tags: latest  
+  
 
-  - name: list-directory-contents
-    image: alpine:3.14
-    commands:
-      - cd ~/
-      - ls -la
-
-  - name: docker-compose-build
-    image: docker/compose:1.29.2
-    # volumes:
-    #   - /var/run/docker.sock:/var/run/docker.sock 
-    volumes:
-      - name: dockersock
-        path: /var/run/docker.sock 
-    commands: 
-      #- pwd
-      - cd ~/
-      - pwd
-      - ls -la
-      - docker-compose build 
+  # - name: docker-compose-build
+  #   image: docker/compose:1.29.2
+  #   # volumes:
+  #   #   - /var/run/docker.sock:/var/run/docker.sock 
+  #   volumes:
+  #     - name: dockersock
+  #       path: /var/run/docker.sock 
+  #   commands: 
+  #     #- pwd
+  #     - cd ~/
+  #     - pwd
+  #     - ls -la
+  #     - docker-compose build 
  
   - name: deploy
     image: appleboy/drone-ssh
