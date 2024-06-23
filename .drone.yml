@@ -8,7 +8,7 @@ steps:
     commands:
       - npm install
       - npm run build
-      - docker build -t playground-app .
+      #- docker build -t playground-app .
 
   - name: push
     image: plugins/docker
@@ -19,7 +19,9 @@ steps:
         from_secret: drone_username
       password:
         from_secret: drone_password
-
+      context: .
+      dockerfile: Dockerfile
+      
   - name: deploy
     image: appleboy/drone-ssh
     settings:
