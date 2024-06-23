@@ -46,15 +46,15 @@ steps:
       - docker info  # Check if Docker daemon is accessible
       - docker build -t playground-app .
 
-  - name: push-docker-image
-    image: plugins/docker
-    settings:
-      username:
-        from_secret: drone_username
-      password:
-        from_secret: drone_password
-      repo: samuelbarone/playground-app
-      tags: latest
+  # - name: push-docker-image
+  #   image: plugins/docker
+  #   settings:
+  #     username:
+  #       from_secret: drone_username
+  #     password:
+  #       from_secret: drone_password
+  #     repo: samuelbarone/playground-app
+  #     tags: latest
  
   - name: deploy
     image: appleboy/drone-ssh
