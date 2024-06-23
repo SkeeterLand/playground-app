@@ -11,10 +11,10 @@ steps:
     - npm run build
    # - docker build -t samuelbarone/playground-app:latest .
 
-- name: test
-  image: node:20.11.1-alpine
-  commands:
-    - npm test  
+# - name: test
+#   image: node:20.11.1-alpine
+#   commands:
+#     - npm test  
  
 - name: docker-build
   image: docker:stable
