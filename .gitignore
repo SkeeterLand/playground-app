@@ -62,8 +62,9 @@ typings/
 
 **/.DS_Store
 .env.local
-.vscode/*.json
+.vscode/*.json 
 
+dist/
 
 .idea
 # Sentry

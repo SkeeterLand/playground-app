@@ -1,18 +1,33 @@
----
+# .drone.yml
 kind: pipeline
 type: docker
 name: default
 
-#platform:
-#  os: linux
-#  arch: arm64
-
 steps:
-- name: hello
-  image: busybox
+- name: build
+  image: node:14
   commands:
-  - echo hello world
- 
-trigger:
-  branch:
-  - main
+    - npm install
+    - npm run build
+    - docker build -t samuelbarone/playground-app:latest .
+
+- name: test
+  image: node:14
+  commands:
+    - npm test
+
+- name: deploy
+  image: appleboy/drone-ssh
+  settings:
+    host: k8s_server_ip
+    username: ssh-username
+    key:
+      from_secret: ssh_private_key
+    script:
+      - kubectl apply -f deployment.yaml
+      - kubectl apply -f service.yaml
+
+services:
+- name: docker
+  image: docker:dind
+  privileged: true

@@ -1,0 +1,20 @@
+# deployment.yaml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: playground-app
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: playground-app
+  template:
+    metadata:
+      labels:
+        app: playground-app
+    spec:
+      containers:
+        - name: playground-app
+          image: samuelbarone/playground-app:latest
+          ports:
+            - containerPort: 3000
