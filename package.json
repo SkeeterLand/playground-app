@@ -1,7 +1,7 @@
 {
   "name": "playground-app",
   "version": "1.0.0",
-  "description": "",
+  "description": "testing out some stuff",
   "main": "dist/index.js",
   "scripts": {
     "build": "npx tsc",
