@@ -3,31 +3,41 @@ type: docker
 name: default
 
 steps:
-  - name: build
+  - name: setup
     image: node:14-alpine
     commands:
+      - apk add --no-cache docker-compose
       - npm install
       - npm run build
-      #- docker build -t playground-app .
 
-  - name: push
-    image: plugins/docker
-    settings:
-      repo: samuelbarone/playground-app
-      tags: latest
-      username:
-        from_secret: drone_username
-      password:
-        from_secret: drone_password
-      context: .
-      dockerfile: Dockerfile
-      
+  # - name: build-and-push
+  #   image: plugins/docker-compose
+  #   settings:
+  #     username:
+  #       from_secret: docker_username
+  #     password:
+  #       from_secret: docker_password
+  #     repo: samuelbarone/playground-app
+  #     tags: latest
+
+
+  - name: docker-compose-build
+    image: docker/compose:1.29.2
+    # volumes:
+    #   - /var/run/docker.sock:/var/run/docker.sock
+    volumes:
+      - name: dockersock
+        path: /var/run/docker.sock
+    commands:
+      - docker-compose build
+
+
   - name: deploy
     image: appleboy/drone-ssh
     settings:
       host: k8s_server_ip
       port: 22
-      username: ssh_username
+      username: ssh-username
       key:
         from_secret: ssh_private_key
       script:
