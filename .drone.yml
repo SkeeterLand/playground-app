@@ -58,12 +58,9 @@ steps:
   #     tags: latest
  
   - name: deploy
-    image: appleboy/drone-ssh
-    volumes:
-      - name: dockersock
-        path: /var/run/docker.sock
+    image: appleboy/drone-ssh 
     settings:
-      host: k8s_server_ip
+      host: "${k8s_server_ip}"
       port: 22
       username: ssh-username
       key:
