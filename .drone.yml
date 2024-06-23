@@ -29,7 +29,7 @@ steps:
         path: /var/run/docker.sock 
     commands: 
       - pwd
-      - cd /
+      - cd ~/
       - pwd
       - ls -la
       - docker-compose -f ~/docker-compose.yml build 
