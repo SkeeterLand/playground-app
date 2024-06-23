@@ -21,17 +21,23 @@ steps:
   #     tags: latest
 
 
-  - name: docker-compose-build
-    image: docker/compose:1.29.2
-    # volumes:
-    #   - /var/run/docker.sock:/var/run/docker.sock
-    volumes:
-      - name: dockersock
-        path: /var/run/docker.sock
+  # - name: docker-compose-build
+  #   image: docker/compose:1.29.2
+  #   # volumes:
+  #   #   - /var/run/docker.sock:/var/run/docker.sock
+  #   volumes:
+  #     - name: dockersock
+  #       path: /var/run/docker.sock
+  #   commands:
+  #     - docker-compose build
+
+  - name: docker-build
+    image: docker:stable
     commands:
-      - docker-compose build
-
-
+      - docker build -t samuelbarone/playground-app:latest .
+      - echo "$ssh_private_key" | docker login -u "$ssh-username" --password-stdin
+      - docker push samuelbarone/playground-app:latest
+ 
   - name: deploy
     image: appleboy/drone-ssh
     settings:
