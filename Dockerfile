@@ -1,22 +1,23 @@
-FROM node:14
+# Use the official Node.js image as a base
+FROM node:14-alpine
 
-# Create a directory for the application
+# Set the working directory
 WORKDIR /app
 
 # Copy package.json and package-lock.json
 COPY package*.json ./
 
-# Install npm dependencies
-RUN npm install --unsafe-perm=true --allow-root
+# Install dependencies
+RUN npm install
 
 # Copy the rest of the application code
 COPY . .
 
-# Set permissions for the app directory
-RUN chown -R node:node /app
+# Build the TypeScript code
+RUN npm run build
 
-# Switch to the node user
-USER node
+# Expose the port the app runs on
+EXPOSE 3000
 
-# Start the application
-CMD ["npm", "start"]
+# Command to run the application
+CMD ["node", "dist/index.js"]
