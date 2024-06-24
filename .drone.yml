@@ -1,5 +1,5 @@
 kind: pipeline
-type: docker
+type: kubernetes
 name: default
 
 steps:
@@ -34,23 +34,44 @@ steps:
   #     - pwd
   #     - ls -la
  
-  - name: deploy
-    image: appleboy/drone-ssh 
+  # - name: deploy
+  #   image: appleboy/drone-ssh 
+  #   settings:
+  #     host: 
+  #       from_secret: k8s_server_ip
+  #     port: 22
+  #     username: 
+  #       from_secret: ssh_username
+  #     key:
+  #       from_secret: ssh_private_key
+  #     script: 
+  #       #- git clone https://github.com/samuelbarone/playground-app
+  #       #- cd /tmp/repo
+  #       - echo "Checking current directory contents"
+  #       - ls -la
+  #       - kubectl apply -f deployment.yml
+  #       - kubectl apply -f service.yml  
+
+ 
+  - name: copy-yaml-files
+    image: alpine
+    commands:
+      - cp deployment.yaml /drone/src/deployment.yaml
+      - cp service.yaml /drone/src/service.yaml
+
+  - name: deploy-to-kubernetes
+    image: appleboy/drone-ssh
     settings:
-      host: 
+      host:
         from_secret: k8s_server_ip
       port: 22
-      username: 
+      username:
         from_secret: ssh_username
       key:
         from_secret: ssh_private_key
-      script: 
-        #- git clone https://github.com/samuelbarone/playground-app
-        #- cd /tmp/repo
-        - echo "Checking current directory contents"
-        - ls -la
-        - kubectl apply -f deployment.yml
-        - kubectl apply -f service.yml  
+      script:
+        - kubectl apply -f /drone/src/deployment.yaml
+        - kubectl apply -f /drone/src/service.yaml
 
 volumes:
   - name: dockersock
