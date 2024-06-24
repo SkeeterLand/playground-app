@@ -6,8 +6,8 @@ WORKDIR /app
 
 # Copy package.json and package-lock.json
 COPY package*.json ./
-COPY deployment.yml
-COPY service.yml
+COPY deployment.yml ./
+COPY service.yml ./
 
 # Install dependencies
 RUN npm install
