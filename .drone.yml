@@ -41,8 +41,8 @@ steps:
       script: 
         #- git clone https://github.com/samuelbarone/playground-app
         #- cd /tmp/repo
-        - kubectl apply -f deployment.yml
-        - kubectl apply -f service.yml  
+        - kubectl apply -f /app/deployment.yml
+        - kubectl apply -f /app/service.yml  
 
 volumes:
   - name: dockersock
