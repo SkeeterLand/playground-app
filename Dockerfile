@@ -21,6 +21,9 @@ COPY . .
 # Build the TypeScript code
 RUN npm run build
 
+
+RUN ls -la /app
+
 # Expose the port the app runs on
 EXPOSE 3000
 
