@@ -1,5 +1,5 @@
 kind: pipeline
-type: kubernetes
+type: docker
 name: default
 
 steps:
@@ -55,8 +55,8 @@ steps:
   - name: copy-yaml-files
     image: alpine
     commands:
-      - cp deployment.yaml /drone/src/deployment.yaml
-      - cp service.yaml /drone/src/service.yaml
+      - cp deployment.yaml /app/deployment.yaml
+      - cp service.yaml /app/service.yaml
 
   - name: deploy-to-kubernetes
     image: appleboy/drone-ssh
@@ -69,8 +69,8 @@ steps:
       key:
         from_secret: ssh_private_key
       script:
-        - kubectl apply -f /drone/src/deployment.yaml
-        - kubectl apply -f /drone/src/service.yaml
+        - kubectl apply -f /app/deployment.yaml
+        - kubectl apply -f /app/service.yaml
 
 volumes:
   - name: dockersock
