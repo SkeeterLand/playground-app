@@ -6,8 +6,8 @@ WORKDIR /app
 
 # Copy package.json and package-lock.json
 COPY package*.json ./  
-COPY deployment.yml ./deployment.yml
-COPY service.yml ./service.yml
+COPY deployment.yml /app/deployment.yml
+COPY service.yml /app/service.yml
 
 #ADD . /usr/app
 #RUN ls /usr/app
