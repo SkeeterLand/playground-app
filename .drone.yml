@@ -88,6 +88,7 @@ steps:
       key:
         from_secret: ssh_private_key
       commands:
+        - ls -la
         - ls -la /drone/src
         - ls -la /app
         - cat /drone/src/deployment.yml  # Check if file is readable
