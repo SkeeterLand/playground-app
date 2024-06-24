@@ -58,8 +58,10 @@ steps:
     image: alpine
     commands:
       - ls -la
-      - cp deployment.yml /drone/src/deployment.yml
-      - cp service.yml /drone/src/service.yml
+      #- cp deployment.yml /drone/src/deployment.yml
+      #- cp service.yml /drone/src/service.yml
+      - cp /app/deployment.yml /drone/src/deployment.yml
+      - cp /app/service.yml /drone/src/service.yml
 
   - name: deploy-to-kubernetes
     image: appleboy/drone-ssh
