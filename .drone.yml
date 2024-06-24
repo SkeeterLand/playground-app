@@ -47,4 +47,4 @@ steps:
 volumes:
   - name: dockersock
     host:
-      path: /var/run/docker.sock  a
+      path: /var/run/docker.sock
