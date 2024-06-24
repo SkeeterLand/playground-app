@@ -39,8 +39,8 @@ steps:
       key:
         from_secret: ssh_private_key
       script: 
-        - git clone https://github.com/samuelbarone/playground-app
-        - cd /tmp/repo
+        #- git clone https://github.com/samuelbarone/playground-app
+        #- cd /tmp/repo
         - kubectl apply -f deployment.yml
         - kubectl apply -f service.yml  
 
