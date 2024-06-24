@@ -24,8 +24,7 @@ steps:
       #- docker build -t playground-app . 
       # - docker build -t samuelbarone/playground-app:latest .
       # - docker push samuelbarone/playground-app:latest  # Push the image to the registry
-
-
+ 
 
   # - name: display-working-directory
   #   image: alpine:3.14
