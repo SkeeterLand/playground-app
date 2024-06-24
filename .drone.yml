@@ -49,8 +49,8 @@ steps:
         #- cd /tmp/repo
         - echo "Checking current directory contents"
         - ls -la
-        - kubectl apply -f app/deployment.yml
-        - kubectl apply -f app/service.yml  
+        - kubectl apply -f deployment.yml
+        - kubectl apply -f service.yml  
 
 volumes:
   - name: dockersock
