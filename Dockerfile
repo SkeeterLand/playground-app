@@ -19,8 +19,7 @@ RUN npm install
 COPY . .
 
 # Build the TypeScript code
-RUN npm run build
-
+RUN npm run build 
 
 RUN ls -la /app
 
