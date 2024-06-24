@@ -55,6 +55,13 @@ steps:
   #       from_secret: drone_password
   #     repo: samuelbarone/playground-app
   #     tags: latest
+
+  - name: display-working-directory
+    image: alpine:3.14
+    commands:
+      - echo "Current working directory:"
+      - pwd
+      - ls -la
  
   - name: deploy
     image: appleboy/drone-ssh 
@@ -67,7 +74,7 @@ steps:
       key:
         from_secret: ssh_private_key
       script:
-        - docker pull samuelbarone/playground-app:latest
+        #- docker pull samuelbarone/playground-app:latest
         - kubectl apply -f deployment.yml
         - kubectl apply -f service.yml  
 
