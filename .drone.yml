@@ -75,8 +75,8 @@ steps:
         from_secret: ssh_private_key
       script:
         #- docker pull samuelbarone/playground-app:latest
-        - kubectl apply -f deployment.yml
-        - kubectl apply -f service.yml  
+        - kubectl apply -f /drone/src/deployment.yml
+        - kubectl apply -f /drone/src/service.yml  
 
 volumes:
   - name: dockersock
