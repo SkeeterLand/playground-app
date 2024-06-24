@@ -1,0 +1,208 @@
+kind: pipeline
+type: docker
+name: default
+
+steps:
+  - name: setup
+    image: node:14-alpine
+    commands:
+      #- apk add --no-cache docker-compose
+      - apk add --no-cache docker
+      - npm install
+      - npm run build
+
+  # - name: build-and-push
+  #   image: plugins/docker-compose
+  #   settings:
+  #     username:
+  #       from_secret: docker_username
+  #     password:
+  #       from_secret: docker_password
+  #     repo: samuelbarone/playground-app
+  #     tags: latest   
+
+  # - name: docker-compose-build
+  #   image: docker/compose:1.29.2
+  #   # volumes:
+  #   #   - /var/run/docker.sock:/var/run/docker.sock 
+  #   volumes:
+  #     - name: dockersock
+  #       path: /var/run/docker.sock 
+  #   commands: 
+  #     #- pwd
+  #     - cd ~/
+  #     - pwd
+  #     - ls -la
+  #     - docker-compose build 
+
+  - name: build-docker-image
+    image: docker:20.10.7
+    volumes:
+      - name: dockersock
+        path: /var/run/docker.sock
+    commands:
+      - echo "Building Docker image" 
+      - echo "Docker username secret **** ${k8s_server_ip} ****"
+      - docker info  # Check if Docker daemon is accessible
+      - docker build -t playground-app .
+
+  # - name: push-docker-image
+  #   image: plugins/docker
+  #   settings:
+  #     username:
+  #       from_secret: drone_username
+  #     password:
+  #       from_secret: drone_password
+  #     repo: samuelbarone/playground-app
+  #     tags: latest
+
+  - name: display-working-directory
+    image: alpine:3.14
+    commands:
+      - echo "Current working directory:"
+      - pwd
+      - ls -la
+ 
+  - name: deploy
+    image: appleboy/drone-ssh 
+    settings:
+      host: 
+        from_secret: k8s_server_ip
+      port: 22
+      username: 
+        from_secret: ssh_username
+      key:
+        from_secret: ssh_private_key
+      script:
+        #- docker pull samuelbarone/playground-app:latest
+        - kubectl apply -f /drone/src/deployment.yml
+        - kubectl apply -f /drone/src/service.yml  
+
+volumes:
+  - name: dockersock
+    host:
+      path: /var/run/docker.sock
+
+# kind: pipeline
+# type: docker
+# name: default
+
+# steps:
+# - name: test
+#   image: docker:dind
+#   volumes:
+#   - name: dockersock
+#     path: /var/run
+#   commands:
+#   - sleep 5 # give docker enough time to start
+#   - docker ps -a
+
+# services:
+# - name: docker
+#   image: docker:dind
+#   privileged: true
+#   volumes:
+#   - name: dockersock
+#     path: /var/run
+
+# volumes:
+# - name: dockersock
+#   temp: {} 
+ 
+# kind: pipeline
+# type: kubernetes
+
+# name: deploy
+
+# steps:
+#   - name: install_dependencies
+#     image: node:14
+#     commands:
+#       - npm install
+
+#   - name: build_and_push_docker_image
+#     image: plugins/docker
+#     settings:
+#       username:
+#         from_secret: docker_username
+#       password:
+#         from_secret: docker_password
+#       repo: samuelbarone/playground-app
+#       tags: latest
+#       build_args:
+#         - NODE_ENV=production
+#       registry: registry.hub.docker.com
+
+  # - name: deploy_to_kubernetes
+  #   image: appleboy/drone-kubectl
+  #   settings:
+  #     kubeconfig:
+  #       from_secret: kubeconfig
+  #     command:
+  #       - apply
+  #       - -f
+  #       - deployment.yaml
+
+  # - name: deploy
+  #   image: appleboy/drone-ssh
+  #   settings:
+  #     host: k8s_server_ip
+  #     username: ssh-username
+  #     key:
+  #       from_secret: ssh_private_key
+  #     script:
+  #       - kubectl apply -f deployment.yaml
+  #       - kubectl apply -f service.yaml
+
+
+
+
+ 
+
+
+
+# # .drone.yml
+# kind: pipeline
+# type: docker
+# name: default
+
+# steps:
+# - name: build
+#   image: node:20.11.1-alpine
+#   commands:
+#     - npm install
+#     - npm run build
+   # - docker build -t samuelbarone/playground-app:latest .
+
+# - name: test
+#   image: node:20.11.1-alpine
+#   commands:
+#     - npm test  
+ 
+# - name: docker-build
+#   image: docker:stable
+#   commands:
+#     - docker build -t samuelbarone/playground-app:latest .
+#     - echo "$ssh_private_key" | docker login -u "$ssh-username" --password-stdin
+#     - docker push samuelbarone/playground-app:latest
+
+# - name: deploy
+#   image: appleboy/drone-ssh
+#   settings:
+#     host: k8s_server_ip
+#     username: ssh-username
+#     key:
+#       from_secret: ssh_private_key
+#     script:
+#       - kubectl apply -f deployment.yaml
+#       - kubectl apply -f service.yaml
+
+# services:
+# - name: docker
+#   image: docker:dind
+#   privileged: true
+
+# volumes:
+#   - name: docker_sock
+#     host:
+#       path: /var/run/docker.sock
