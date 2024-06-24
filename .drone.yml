@@ -51,14 +51,15 @@ steps:
   #       - kubectl apply -f deployment.yml
   #       - kubectl apply -f service.yml  
 
-  
+
 
  
-  # - name: copy-yaml-files
-  #   image: alpine
-  #   commands:
-  #     - cp deployment.yml /drone/src/deployment.yml
-  #     - cp service.yml /drone/src/service.yml
+  - name: copy-yaml-files
+    image: alpine
+    commands:
+      - ls -la
+      - cp deployment.yml /drone/src/deployment.yml
+      - cp service.yml /drone/src/service.yml
 
   - name: deploy-to-kubernetes
     image: appleboy/drone-ssh
@@ -71,6 +72,7 @@ steps:
       key:
         from_secret: ssh_private_key
       script:
+        - ls -la
         - kubectl apply -f /drone/src/deployment.yaml
         - kubectl apply -f /drone/src/service.yaml
 
