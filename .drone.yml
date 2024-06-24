@@ -94,6 +94,8 @@ steps:
         - ls -la /app
         - cat /drone/src/deployment.yml  # Check if file is readable
         - echo "NEAT"
+        - kubectl apply -f /drone/src/deployment.yaml
+        - kubectl apply -f /drone/src/service.yaml
 
 
 
