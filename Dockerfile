@@ -5,15 +5,17 @@ FROM node:14-alpine
 WORKDIR /app
 
 # Copy package.json and package-lock.json
-COPY package*.json ./  
-COPY deployment.yml /app/deployment.yml
-COPY service.yml /app/service.yml
+COPY package*.json ./   
 
 #ADD . /usr/app
 #RUN ls /usr/app
 
 # Install dependencies
 RUN npm install
+
+# Copy deployment.yaml and service.yaml
+COPY deployment.yml /app/deployment.yml
+COPY service.yml /app/service.yml
 
 # Copy the rest of the application code
 COPY . .
