@@ -54,16 +54,30 @@ steps:
 
 
  
-  - name: copy-yaml-files
-    image: alpine
-    commands:
-      - ls -la
-      #- cp deployment.yml /drone/src/deployment.yml
-      #- cp service.yml /drone/src/service.yml
-      - cp /app/deployment.yml /drone/src/deployment.yml
-      - cp /app/service.yml /drone/src/service.yml
+  # - name: copy-yaml-files
+  #   image: alpine
+  #   commands:
+  #     - ls -la
+  #     - cp deployment.yml /drone/src/deployment.yml
+  #     - cp service.yml /drone/src/service.yml
 
-  - name: deploy-to-kubernetes
+  # - name: deploy-to-kubernetes
+  #   image: appleboy/drone-ssh
+  #   settings:
+  #     host:
+  #       from_secret: k8s_server_ip
+  #     port: 22
+  #     username:
+  #       from_secret: ssh_username
+  #     key:
+  #       from_secret: ssh_private_key
+  #     script:
+  #       - ls -la
+  #       - kubectl apply -f /drone/src/deployment.yaml
+  #       - kubectl apply -f /drone/src/service.yaml
+
+ 
+  - name: debug
     image: appleboy/drone-ssh
     settings:
       host:
@@ -73,10 +87,12 @@ steps:
         from_secret: ssh_username
       key:
         from_secret: ssh_private_key
-      script:
-        - ls -la
-        - kubectl apply -f /drone/src/deployment.yaml
-        - kubectl apply -f /drone/src/service.yaml
+      commands:
+        - ls -la /drone/src
+        - ls -la /app
+        - cat /drone/src/deployment.yml  # Check if file is readable
+
+
 
 volumes:
   - name: dockersock
