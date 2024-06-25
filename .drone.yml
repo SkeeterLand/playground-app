@@ -17,7 +17,7 @@ steps:
         path: /var/run/docker.sock
     commands:
       - echo "Building Docker image" 
-      - docker -t playground-app:latest localhost:5000/playground-app:latest
+      - docker tag playground-app:latest localhost:5000/playground-app:latest
       - docker push localhost:5000/playground-app:latest
       # - docker build -t playground-app:latest . 
       # - docker push playground-app:latest  # Push the image to the registry
