@@ -18,8 +18,8 @@ steps:
     commands:
       - echo "Building Docker image" 
       - docker build -t playground-app:latest . 
-      - docker tag playground-app:latest localhost:5000/playground-app:latest
-      - docker push localhost:5000/playground-app:latest
+      - docker tag playground-app:latest 127.0.0.1:5000/playground-app:latest
+      - docker push 127.0.0.1:5000/playground-app:latest
       # - docker build -t playground-app:latest . 
       # - docker push playground-app:latest  # Push the image to the registry 
       # - docker tag playground-app:latest localhost:5000/playground-app:latest 
