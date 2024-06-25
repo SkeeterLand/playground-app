@@ -17,13 +17,15 @@ steps:
         path: /var/run/docker.sock
     commands:
       - echo "Building Docker image" 
-      - docker build -t playground-app .
-      # - docker tag playground-app:latest localhost:5000/playground-app:latest
-      #- echo "Docker username secret **** ${k8s_server_ip} ****"
-      #- docker info  # Check if Docker daemon is accessible
-      #- docker build -t playground-app . 
+      - docker -t playground-app:latest localhost:5000/playground-app:latest
+      - docker push localhost:5000/playground-app:latest
+      # - docker build -t playground-app:latest . 
+      # - docker push playground-app:latest  # Push the image to the registry
+
+      # - docker tag playground-app:latest localhost:5000/playground-app:latest 
+      # - docker info  # Check if Docker daemon is accessible 
       # - docker build -t samuelbarone/playground-app:latest .
-      # - docker push samuelbarone/playground-app:latest  # Push the image to the registry
+     
  
 
   # - name: display-working-directory
@@ -61,20 +63,20 @@ steps:
   #     - cp deployment.yml /drone/src/deployment.yml
   #     - cp service.yml /drone/src/service.yml
 
-  - name: deploy-to-kubernetes
-    image: appleboy/drone-ssh
-    settings:
-      host:
-        from_secret: k8s_server_ip
-      port: 22
-      username:
-        from_secret: ssh_username
-      key:
-        from_secret: ssh_private_key
-      script:
-        - ls -la
-        - kubectl apply -f /drone/src/deployment.yaml
-        - kubectl apply -f /drone/src/service.yaml
+  # - name: deploy-to-kubernetes
+  #   image: appleboy/drone-ssh
+  #   settings:
+  #     host:
+  #       from_secret: k8s_server_ip
+  #     port: 22
+  #     username:
+  #       from_secret: ssh_username
+  #     key:
+  #       from_secret: ssh_private_key
+  #     script:
+  #       - ls -la
+  #       - kubectl apply -f /drone/src/deployment.yaml
+  #       - kubectl apply -f /drone/src/service.yaml
 
  
   # - name: debug
