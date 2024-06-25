@@ -26,9 +26,7 @@ steps:
       # - docker tag playground-app:latest localhost:5000/playground-app:latest 
       # - docker info  # Check if Docker daemon is accessible 
       # - docker build -t samuelbarone/playground-app:latest .
-     
- 
-
+      
   # - name: display-working-directory
   #   image: alpine:3.14
   #   commands:
