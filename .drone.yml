@@ -22,7 +22,7 @@ steps:
       # DOCKER_TLS_VERIFY: "0"
       # DOCKER_HOST: "tcp://$DRONE_SERVER_IP:5000"
     commands:
-      - echo "Building Docker image"  
+      - echo "Building Neat Docker image"  
       #- echo "DRONE_SERVER_IP is set to ${DRONE_SERVER_IP}"
       #- echo ${DRONE_SERVER_IP}
       - echo $DRONE_SERVER_IP
