@@ -19,8 +19,8 @@ steps:
     environment:
       DRONE_SERVER_IP:
         from_secret: DRONE_SERVER_IP
-      DOCKER_TLS_VERIFY: "0"
-      DOCKER_HOST: "tcp://$DRONE_SERVER_IP:5000"
+      # DOCKER_TLS_VERIFY: "0"
+      # DOCKER_HOST: "tcp://$DRONE_SERVER_IP:5000"
     commands:
       - echo "Building Docker image"  
       #- echo "DRONE_SERVER_IP is set to ${DRONE_SERVER_IP}"
