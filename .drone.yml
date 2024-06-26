@@ -21,12 +21,12 @@ steps:
         from_secret: DRONE_SERVER_IP
     commands:
       - echo "Building Docker image"  
-      - echo "DRONE_SERVER_IP is set to ${DRONE_SERVER_IP}"
-      - echo ${DRONE_SERVER_IP}
+      #- echo "DRONE_SERVER_IP is set to ${DRONE_SERVER_IP}"
+      #- echo ${DRONE_SERVER_IP}
       - echo $DRONE_SERVER_IP
-      #- docker build -t playground-app:latest . 
-      #- docker tag playground-app:latest ${DRONE_SERVER_IP}:5000/playground-app:latest
-      #- docker push ${DRONE_SERVER_IP}:5000/playground-app:latest
+      - docker build -t playground-app:latest . 
+      - docker tag playground-app:latest $DRONE_SERVER_IP:5000/playground-app:latest
+      - docker push $DRONE_SERVER_IP:5000/playground-app:latest
 
       # - docker build -t playground-app:latest . 
       # - docker push playground-app:latest  # Push the image to the registry 
