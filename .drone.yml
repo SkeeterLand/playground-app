@@ -15,11 +15,14 @@ steps:
     volumes:
       - name: dockersock
         path: /var/run/docker.sock
+    environment:
+      DRONE_SERVER_IP:
+        from_secret: drone_server_ip
     commands:
       - echo "Building Docker image" 
       - docker build -t playground-app:latest . 
-      - docker tag playground-app:latest ${drone_server_ip}:5000/playground-app:latest
-      - docker push ${drone_server_ip}:5000/playground-app:latest
+      - docker tag playground-app:latest ${DRONE_SERVER_IP}:5000/playground-app:latest
+      - docker push ${DRONE_SERVER_IP}:5000/playground-app:latest
       # - docker build -t playground-app:latest . 
       # - docker push playground-app:latest  # Push the image to the registry 
       # - docker tag playground-app:latest localhost:5000/playground-app:latest 
