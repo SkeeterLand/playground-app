@@ -96,9 +96,7 @@ steps:
   #       - echo "NEAT"
   #       - kubectl apply -f /drone/src/deployment.yaml
   #       - kubectl apply -f /drone/src/service.yaml
-
-
-
+ 
 volumes:
   - name: dockersock
     host:
