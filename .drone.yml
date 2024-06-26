@@ -17,7 +17,7 @@ steps:
         path: /var/run/docker.sock
     environment:
       DRONE_SERVER_IP:
-        from_secret: drone_server_ip
+        from_secret: DRONE_SERVER_IP
     commands:
       - echo "Building Docker image" 
       - docker build -t playground-app:latest . 
