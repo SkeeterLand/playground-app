@@ -25,19 +25,33 @@ steps:
       - docker tag playground-app:latest $DRONE_SERVER_IP:5000/playground-app:latest
       - docker push $DRONE_SERVER_IP:5000/playground-app:latest
 
-  - name: deploy
-    image: target/kubernetes
-    settings:
-      manifests:
-        - deployment.yaml
-        - service.yaml
-    environment:
-      KUBE_CONFIG:
-        from_secret: kubeconfig
+  # - name: deploy
+  #   image: target/kubernetes
+  #   settings:
+  #     manifests:
+  #       - deployment.yaml
+  #       - service.yaml
+  #   environment:
+  #     KUBE_CONFIG:
+  #       from_secret: kubeconfig
       # context: kubernetes-admin@kubernetes
       # KUBE_CONTEXT: kubernetes-admin@kubernetes
-              
- 
+
+
+  - name: deploy
+    image: $DRONE_SERVER_IP:5000/playground-app:latest
+    commands:
+      - kubectl apply -f deployment.yml
+      - kubectl apply -f services.yml
+    environment:
+      DRONE_SERVER_IP:
+        from_secret: DRONE_SERVER_IP 
+      KUBECONFIG:
+        from_secret: kubeconfig
+    volumes:
+      - name: kubeconfig
+        path: /root/.kube   
+  
 
   # - name: debug
   #   image: busybox
