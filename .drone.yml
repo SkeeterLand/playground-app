@@ -31,6 +31,23 @@ steps:
     commands:
       - ls -al
 
+
+  - name: deploy
+    image: appleboy/drone-ssh 
+    settings:
+      host: 
+        from_secret: k8s_server_ip
+      port: 22
+      username: 
+        from_secret: ssh_username
+      key:
+        from_secret: ssh_private_key
+      script:
+        #- docker pull samuelbarone/playground-app:latest
+        - kubectl apply -f deployment.yml
+        - kubectl apply -f service.yml  
+
+
       # - docker build -t playground-app:latest . 
       # - docker push playground-app:latest  # Push the image to the registry 
       # - docker tag playground-app:latest localhost:5000/playground-app:latest 
