@@ -36,8 +36,7 @@ steps:
         from_secret: kubeconfig
       KUBE_CONTEXT: kubernetes-admin@kubernetes
       KUBE_CURRENT_CONTEXT: kubernetes-admin@kubernetes
-                  
-
+              
  
   # - name: debug
   #   image: busybox
