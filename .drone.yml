@@ -25,28 +25,38 @@ steps:
       - docker tag playground-app:latest $DRONE_SERVER_IP:5000/playground-app:latest
       - docker push $DRONE_SERVER_IP:5000/playground-app:latest
 
- 
-  - name: debug
-    image: busybox
-    commands:
-      - ls -al
-
 
   - name: deploy
-    image: appleboy/drone-ssh 
+    image: target/drone-kubernetes
     settings:
-      host: 
-        from_secret: k8s_server_ip
-      port: 22
-      username: 
-        from_secret: ssh_username
-      key:
-        from_secret: ssh_private_key
-      script:
-        - ls -la
-        #- docker pull samuelbarone/playground-app:latest
-        - kubectl apply -f deployment.yml
-        - kubectl apply -f service.yml  
+      kubeconfig:
+      from_secret: kubeconfig
+      manifests:
+        - deployment.yaml
+        - service.yaml
+
+ 
+  # - name: debug
+  #   image: busybox
+  #   commands:
+  #     - ls -al
+
+
+  # - name: deploy
+  #   image: appleboy/drone-ssh 
+  #   settings:
+  #     host: 
+  #       from_secret: k8s_server_ip
+  #     port: 22
+  #     username: 
+  #       from_secret: ssh_username
+  #     key:
+  #       from_secret: ssh_private_key
+  #     script:
+  #       - ls -la
+  #       #- docker pull samuelbarone/playground-app:latest
+  #       - kubectl apply -f deployment.yml
+  #       - kubectl apply -f service.yml  
 
 
       # - docker build -t playground-app:latest . 
