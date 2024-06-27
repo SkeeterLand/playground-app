@@ -1,7 +1,6 @@
 kind: pipeline
 type: docker
-name: default
- 
+name: default 
 
 steps:
   - name: setup
@@ -18,17 +17,19 @@ steps:
         path: /var/run/docker.sock
     environment:
       DRONE_SERVER_IP:
-        from_secret: DRONE_SERVER_IP
-      # DOCKER_TLS_VERIFY: "0"
-      # DOCKER_HOST: "tcp://$DRONE_SERVER_IP:5000"
+        from_secret: DRONE_SERVER_IP 
     commands:
-      - echo "Building Neat Docker image"  
-      #- echo "DRONE_SERVER_IP is set to ${DRONE_SERVER_IP}"
-      #- echo ${DRONE_SERVER_IP}
+      - echo "Building Neat Docker image"   
       #- echo $DRONE_SERVER_IP
       - docker build -t playground-app:latest . 
       - docker tag playground-app:latest $DRONE_SERVER_IP:5000/playground-app:latest
       - docker push $DRONE_SERVER_IP:5000/playground-app:latest
+
+ 
+  - name: debug
+    image: busybox
+    commands:
+      - ls -al
 
       # - docker build -t playground-app:latest . 
       # - docker push playground-app:latest  # Push the image to the registry 
