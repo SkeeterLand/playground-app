@@ -30,7 +30,7 @@ steps:
     image: target/drone-kubernetes
     settings:
       kubeconfig:
-      from_secret: kubeconfig
+        from_secret: kubeconfig
       manifests:
         - deployment.yaml
         - service.yaml
