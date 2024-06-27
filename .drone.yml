@@ -32,7 +32,7 @@ steps:
         - deployment.yaml
         - service.yaml
     environment:
-      KUBE_CONFIG:
+      KUBECONFIG:
         from_secret: kubeconfig
       CONTEXT: kubernetes-admin@kubernetes
       # KUBE_CONTEXT: kubernetes-admin@kubernetes
