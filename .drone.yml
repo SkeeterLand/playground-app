@@ -29,11 +29,13 @@ steps:
   - name: deploy
     image: target/drone-kubernetes
     settings:
-      kubeconfig:
-        from_secret: kubeconfig
       manifests:
         - deployment.yaml
         - service.yaml
+    environment:
+      KUBE_CONFIG:
+        from_secret: kubeconfig
+
 
  
   # - name: debug
