@@ -25,7 +25,7 @@ steps:
       - echo "Building Neat Docker image"  
       #- echo "DRONE_SERVER_IP is set to ${DRONE_SERVER_IP}"
       #- echo ${DRONE_SERVER_IP}
-      - echo $DRONE_SERVER_IP
+      #- echo $DRONE_SERVER_IP
       - docker build -t playground-app:latest . 
       - docker tag playground-app:latest $DRONE_SERVER_IP:5000/playground-app:latest
       - docker push $DRONE_SERVER_IP:5000/playground-app:latest
