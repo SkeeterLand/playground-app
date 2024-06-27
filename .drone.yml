@@ -27,7 +27,7 @@ steps:
 
 
   - name: deploy
-    image: target/drone-kubernetes
+    image: target/drone-kubernetes:1.4
     settings:
       manifests:
         - deployment.yaml
