@@ -25,15 +25,6 @@ steps:
       - docker tag playground-app:latest $DRONE_SERVER_IP:5000/playground-app:latest
       - docker push $DRONE_SERVER_IP:5000/playground-app:latest
 
-
-  - name: debug
-    image: alpine
-    commands:
-      - echo "Decoding KUBE_CONFIG and printing content:"
-      - echo $KUBE_CONFIG | base64 -d
-      - echo "KUBE_CONTEXT:"
-      - echo $KUBE_CONTEXT
-
   - name: deploy
     image: target/drone-kubernetes:1.4
     settings:
@@ -44,6 +35,7 @@ steps:
       KUBE_CONFIG:
         from_secret: kubeconfig
       KUBE_CONTEXT: kubernetes-admin@kubernetes
+      KUBE_CURRENT_CONTEXT: kubernetes-admin@kubernetes
                   
 
  
