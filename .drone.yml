@@ -45,12 +45,11 @@ steps:
       - kubectl apply -f services.yml
     environment:
       DRONE_SERVER_IP:
-        from_secret: DRONE_SERVER_IP 
-      KUBECONFIG:
-        from_secret: kubeconfig
+        from_secret: DRONE_SERVER_IP
+      KUBECONFIG: /root/.kube/config  # This is the path inside the container
     volumes:
       - name: kubeconfig
-        path: /root/.kube   
+        path: /root/.kube  # Mount point inside the container 
   
 
   # - name: debug
