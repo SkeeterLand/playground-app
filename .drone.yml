@@ -34,8 +34,8 @@ steps:
     environment:
       KUBE_CONFIG:
         from_secret: kubeconfig
-      KUBE_CONTEXT: kubernetes-admin@kubernetes
-      KUBE_CURRENT_CONTEXT: kubernetes-admin@kubernetes
+      CONTEXT: kubernetes-admin@kubernetes
+      # KUBE_CONTEXT: kubernetes-admin@kubernetes
               
  
   # - name: debug
