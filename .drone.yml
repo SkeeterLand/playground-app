@@ -32,13 +32,13 @@ steps:
         - deployment.yaml
         - service.yaml
     environment:
-      KUBECONFIG:
+      KUBE_CONFIG:
         from_secret: kubeconfig
-      CONTEXT: kubernetes-admin@kubernetes
+      context: kubernetes-admin@kubernetes
       # KUBE_CONTEXT: kubernetes-admin@kubernetes
               
  
- 
+
   # - name: debug
   #   image: busybox
   #   commands:
