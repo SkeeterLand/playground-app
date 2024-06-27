@@ -43,6 +43,7 @@ steps:
       key:
         from_secret: ssh_private_key
       script:
+        - ls -la
         #- docker pull samuelbarone/playground-app:latest
         - kubectl apply -f deployment.yml
         - kubectl apply -f service.yml  
