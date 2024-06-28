@@ -145,8 +145,7 @@ steps:
   #     script:
   #       - ls -la
   #       - kubectl apply -f /drone/src/deployment.yaml
-  #       - kubectl apply -f /drone/src/service.yaml
-
+  #       - kubectl apply -f /drone/src/service.yaml 
  
   # - name: debug
   #   image: appleboy/drone-ssh
