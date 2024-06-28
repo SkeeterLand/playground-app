@@ -73,9 +73,8 @@ steps:
   # - name: debug
   #   image: busybox
   #   commands:
-  #     - ls -al
-
-
+  #     - ls -al 
+  
   # - name: deploy
   #   image: appleboy/drone-ssh 
   #   settings:
