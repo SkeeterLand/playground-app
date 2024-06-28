@@ -24,8 +24,7 @@ steps:
       - docker build -t playground-app:latest . 
       - docker tag playground-app:latest $DRONE_SERVER_IP:5000/playground-app:latest
       - docker push $DRONE_SERVER_IP:5000/playground-app:latest
-
-
+ 
   - name: deploy
     image: appleboy/drone-ssh 
     settings:
@@ -74,7 +73,7 @@ steps:
   #   image: busybox
   #   commands:
   #     - ls -al 
-  
+
   # - name: deploy
   #   image: appleboy/drone-ssh 
   #   settings:
