@@ -25,6 +25,23 @@ steps:
       - docker tag playground-app:latest $DRONE_SERVER_IP:5000/playground-app:latest
       - docker push $DRONE_SERVER_IP:5000/playground-app:latest
 
+
+  - name: deploy
+    image: appleboy/drone-ssh 
+    settings:
+      host: 
+        from_secret: k8s_server_ip
+      port: 22
+      username: 
+        from_secret: ssh_username
+      key:
+        from_secret: ssh_private_key
+      script:  
+        - echo "Checking current directory contents"
+        - ls -la
+        - kubectl apply -f deployment.yml
+        - kubectl apply -f service.yml 
+
   # - name: deploy
   #   image: target/kubernetes
   #   settings:
@@ -38,18 +55,19 @@ steps:
       # KUBE_CONTEXT: kubernetes-admin@kubernetes
 
 
-  - name: deploy
-    image: $DRONE_SERVER_IP:5000/playground-app:latest
-    commands:
-      - kubectl apply -f deployment.yml
-      - kubectl apply -f services.yml
-    environment:
-      DRONE_SERVER_IP:
-        from_secret: DRONE_SERVER_IP
-      KUBECONFIG: /root/.kube/config  # This is the path inside the container
-    volumes:
-      - name: kubeconfig
-        path: /root/.kube  # Mount point inside the container 
+  # - name: deploy
+  #   image:
+  #     from_secret: $DRONE_SERVER_IP:5000/playground-app:latest
+  #   commands:
+  #     - kubectl apply -f deployment.yml
+  #     - kubectl apply -f services.yml
+  #   environment: 
+  #     DRONE_SERVER_IP:
+  #       from_secret: DRONE_SERVER_IP
+  #     KUBECONFIG: /root/.kube/config  # This is the path inside the container
+  #   volumes:
+  #     - name: kubeconfig
+  #       path: /root/.kube  # Mount point inside the container 
   
 
   # - name: debug

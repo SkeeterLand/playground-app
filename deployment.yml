@@ -14,8 +14,12 @@ spec:
         app: playground-app
     spec:
       containers:
+        imagePullSecrets:
+        - name: my-registry-key
+
         - name: playground-app
-          image: samuelbarone/playground-app:latest
+          image: 10.0.0.69:8081/playground-app:latest
+          imagePullPolicy: Always
           ports:
             - containerPort: 3000
           env:
