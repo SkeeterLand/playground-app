@@ -153,9 +153,7 @@ volumes:
   #     script:
   #       - kubectl apply -f deployment.yaml
   #       - kubectl apply -f service.yaml
-
-
-
+ 
 # # .drone.yml
 # kind: pipeline
 # type: docker
