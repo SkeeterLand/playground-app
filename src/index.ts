@@ -9,7 +9,7 @@ const app: Express = express();
 const port = process.env.PORT || 3000;
 
 app.get("/", (req: Request, res: Response) => {
-  res.send("Playground from Skeeter");
+  res.send("Neat Playground from Skeeter");
 });
 
 app.listen(port, () => {
