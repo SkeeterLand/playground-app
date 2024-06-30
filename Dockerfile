@@ -14,8 +14,8 @@ COPY package*.json ./
 RUN npm install
 
 # Copy deployment.yaml and service.yaml
-COPY deployment.yml /app/deployment.yml
-COPY service.yml /app/service.yml
+# COPY deployment.yml /app/deployment.yml
+# COPY service.yml /app/service.yml
 
 # Copy the rest of the application code
 COPY . .
