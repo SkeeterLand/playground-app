@@ -18,8 +18,8 @@ RUN npm install
 # COPY service.yml /app/service.yml
 
 # Copy the rest of the application code
-#COPY . .
-COPY dist/ . 
+COPY . .
+#COPY dist/ . 
 
 # Build the TypeScript code
 RUN npm run build 
