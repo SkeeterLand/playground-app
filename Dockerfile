@@ -19,9 +19,7 @@ RUN npm install
 
 # Copy the rest of the application code
 #COPY . .
-COPY dist/ .
-
-# testing
+COPY dist/ . 
 
 # Build the TypeScript code
 RUN npm run build 
