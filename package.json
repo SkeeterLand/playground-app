@@ -24,9 +24,9 @@
   },
   "contributors": [],
   "scripts": {
-    "start": "webpack serve --open --config webpack.config.cjs",
+    "start": "npx serve -s dist",
     "build": "webpack --config webpack.config.cjs",
-    "dev": "",
+    "dev":  "webpack serve --open --config webpack.config.cjs",
     "test": ""
   },
   "devDependencies": {

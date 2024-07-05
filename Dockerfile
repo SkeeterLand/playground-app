@@ -1,36 +1,11 @@
-# Use the official Node.js image as a base
-FROM node:14-alpine
+# Use the official Nginx image as the base image
+FROM nginx:alpine
 
-# Set the working directory
-WORKDIR /app
+# Copy the build output to replace the default Nginx static files
+COPY dist /usr/share/nginx/html
 
-# Copy package.json and package-lock.json
-COPY package*.json ./   
-
-#ADD . /usr/app
-#RUN ls /usr/app
-
-# Install dependencies
-RUN npm install
-
-# Copy deployment.yaml and service.yaml
-# COPY deployment.yml /app/deployment.yml
-# COPY service.yml /app/service.yml
-
-# Copy the rest of the application code
-COPY . .
-#COPY dist/ . 
-
-# Build the TypeScript code
-RUN npm run build 
-
-RUN ls -la /app
-
-# Expose the port the app runs on
+# Expose port 80 to the outside world
 EXPOSE 30080
 
-# testing
-
-# Command to run the application
-# CMD ["node", "dist/index.js"]
-CMD ["npm", "run", "start"]
+# Start Nginx when the container starts
+CMD ["nginx", "-g", "daemon off;"]
