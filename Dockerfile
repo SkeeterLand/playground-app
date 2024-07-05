@@ -21,6 +21,8 @@ RUN npm install
 #COPY . .
 COPY dist/ .
 
+# testing
+
 # Build the TypeScript code
 RUN npm run build 
 
