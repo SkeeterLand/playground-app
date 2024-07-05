@@ -16,7 +16,7 @@ export class HelloWorld extends LitElement {
       <p>Name:
       <input type="text" placeholder="type on me" @input=${this._nameChanged} .value=${live(this.name ?? '')}></p>
       <p><button class="button-3" @click=${this._clear}>Clear</button></p>
-      <p class="display">${this.name}</p>
+      <p class="display name">${this.name}</p>
     `; 
   }
 
