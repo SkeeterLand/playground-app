@@ -1,0 +1,137 @@
+// Define variables for commonly used settings
+$input-max-width: 400px;
+$input-padding: 12px 20px;
+$input-margin: 10px 0;
+$input-border: 2px solid #ccc;
+$input-border-radius: 5px;
+$input-font-size: 16px;
+$input-transition: all 0.3s ease-in-out;
+$input-focus-border-color: #66afe9;
+$input-focus-box-shadow: 0 0 8px rgba(102, 175, 233, 0.6);
+$input-placeholder-color: #999;
+$icon-color: #999;
+$icon-size: 20px;
+$button-background-color: #2ea44f;
+$button-border-color: rgba(27, 31, 35, .15);
+$button-border-radius: 6px;
+$button-box-shadow: rgba(27, 31, 35, .1) 0 1px 0;
+$button-color: #fff;
+$button-font-size: 14px;
+$button-font-weight: 600;
+$button-line-height: 20px;
+$button-padding: 6px 16px;
+$button-hover-background-color: #2c974b;
+$button-focus-box-shadow: rgba(46, 164, 79, .4) 0 0 0 3px;
+$button-disabled-background-color: #94d3a2;
+$button-disabled-border-color: rgba(27, 31, 35, .1);
+$button-disabled-color: rgba(255, 255, 255, .8);
+$button-active-background-color: #298e46;
+$button-active-box-shadow: rgba(20, 70, 32, .2) 0 1px 0 inset;
+$display-font-size: 1.2em;
+$display-font-style: italic;
+$display-color: #0a3d19;
+$display-padding-top: 10px;
+$display-margin: 5px;
+
+input[type="text"] {
+  width: 100%;
+  max-width: $input-max-width;
+  padding: $input-padding;
+  margin: $input-margin;
+  display: inline-block;
+  border: $input-border;
+  border-radius: $input-border-radius;
+  box-sizing: border-box;
+  font-size: $input-font-size;
+  transition: $input-transition;
+
+  &:focus {
+    border-color: $input-focus-border-color;
+    box-shadow: $input-focus-box-shadow;
+    outline: none;
+  }
+
+  &::placeholder {
+    color: $input-placeholder-color;
+    font-style: italic;
+  }
+}
+
+// Adding icon inside the input field
+.input-container {
+  position: relative;
+  width: 100%;
+  max-width: $input-max-width;
+
+  input[type="text"] {
+    padding-left: 40px; // Add space for the icon
+  }
+
+  .icon {
+    position: absolute;
+    left: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: $icon-color;
+    font-size: $icon-size;
+  }
+}
+
+.button-3 {
+  appearance: none;
+  background-color: $button-background-color;
+  border: 1px solid $button-border-color;
+  border-radius: $button-border-radius;
+  box-shadow: $button-box-shadow;
+  box-sizing: border-box;
+  color: $button-color;
+  cursor: pointer;
+  display: inline-block;
+  font-family: -apple-system,system-ui,"Segoe UI",Helvetica,Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji";
+  font-size: $button-font-size;
+  font-weight: $button-font-weight;
+  line-height: $button-line-height;
+  padding: $button-padding;
+  position: relative;
+  text-align: center;
+  text-decoration: none;
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+  vertical-align: middle;
+  white-space: nowrap;
+
+  &:focus:not(:focus-visible):not(.focus-visible) {
+    box-shadow: none;
+    outline: none;
+  }
+
+  &:hover {
+    background-color: $button-hover-background-color;
+  }
+
+  &:focus {
+    box-shadow: $button-focus-box-shadow;
+    outline: none;
+  }
+
+  &:disabled {
+    background-color: $button-disabled-background-color;
+    border-color: $button-disabled-border-color;
+    color: $button-disabled-color;
+    cursor: default;
+  }
+
+  &:active {
+    background-color: $button-active-background-color;
+    box-shadow: $button-active-box-shadow;
+  }
+}
+
+.display {
+  font-size: $display-font-size;
+  font-style: $display-font-style;
+  color: $display-color;
+  padding-top: $display-padding-top;
+  margin: $display-margin;
+}

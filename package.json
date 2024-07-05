@@ -1,25 +1,49 @@
 {
-  "name": "playground-app",
+  "name": "",
   "version": "1.0.0",
-  "description": "testing out some stuff",
-  "main": "dist/index.js",
-  "scripts": {
-    "build": "npx tsc",
-    "start": "node dist/index.js",
-    "dev": "nodemon src/index.ts"
+  "description": "",
+  "main": "index.js",
+  "type": "module",
+  "license": "AGPL-version-3.0",
+  "private": false,
+  "engines": {
+    "node": ">= 14.0.0",
+    "npm": ">= 6.0.0"
   },
+  "homepage": "",
+  "repository": {
+    "type": "git",
+    "url": ""
+  },
+  "bugs": "",
   "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "dependencies": {
-    "dotenv": "^16.4.5",
-    "express": "^4.19.2"
+  "author": {
+    "name": "",
+    "email": "",
+    "url": ""
+  },
+  "contributors": [],
+  "scripts": {
+    "start": "webpack serve --open --config webpack.config.cjs",
+    "build": "webpack --config webpack.config.cjs",
+    "dev": "",
+    "test": ""
   },
   "devDependencies": {
-    "@types/express": "^4.17.21",
-    "@types/node": "^20.12.12",
-    "nodemon": "^3.1.1",
-    "ts-node": "^10.9.2",
-    "typescript": "^5.4.5"
+    "html-webpack-plugin": "^5.6.0",
+    "lit-css-loader": "^3.0.0",
+    "sass": "^1.77.6",
+    "sass-loader": "^14.2.1",
+    "ts-loader": "^9.5.1",
+    "typescript": "^5.5.3",
+    "webpack": "^5.92.1",
+    "webpack-cli": "^5.1.4",
+    "webpack-dev-server": "^5.0.4"
+  },
+  "dependencies": {
+    "i": "^0.3.7",
+    "lit": "^3.1.4",
+    "lit-element": "^4.0.6",
+    "npm": "^10.8.1"
   }
 }
