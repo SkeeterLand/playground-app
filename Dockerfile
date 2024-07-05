@@ -30,4 +30,4 @@ EXPOSE 30080
 
 # Command to run the application
 # CMD ["node", "dist/index.js"]
-CMD ["npm", "start"]
+CMD ["npm", "run", "start"]
