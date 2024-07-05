@@ -29,6 +29,8 @@ RUN ls -la /app
 # Expose the port the app runs on
 EXPOSE 30080
 
+# testing
+
 # Command to run the application
 # CMD ["node", "dist/index.js"]
 CMD ["npm", "run", "start"]
