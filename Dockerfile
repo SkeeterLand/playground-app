@@ -29,4 +29,5 @@ RUN ls -la /app
 EXPOSE 30080
 
 # Command to run the application
-CMD ["node", "dist/index.js"]
+# CMD ["node", "dist/index.js"]
+CMD ["npm", "start"]
